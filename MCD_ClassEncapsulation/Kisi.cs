@@ -61,6 +61,52 @@ namespace MCD_ClassEncapsulation
 
         public DateTime DogumTarihi { get; set; }
 
+        private string _telefonNumarasi;
+
+        public string TelefonNumarasi
+        {
+            get
+            {
+                return _telefonNumarasi.Substring(0, 3) + " "
+                + _telefonNumarasi.Substring(3, 3) + " "
+                + _telefonNumarasi.Substring(6, 2) + " "
+                + _telefonNumarasi.Substring(8, 2);
+            }
+            set
+            {
+                char[] dizi = value.ToCharArray();
+                bool hepsiRakamMi = true;
+                foreach (char item in dizi)
+                {
+                    if (char.IsNumber(item)==false)
+                    {
+                        hepsiRakamMi = false;
+                        break;
+                    }
+                }
+
+                if (hepsiRakamMi==true)
+                {
+                    if (value.ToString().Length==10)
+                    {
+                        _telefonNumarasi = value;
+                    }
+                    else
+                    {
+                        throw new FormatException("Telefon numarası 10 haneli olmalıdır. 5xxxxxxxxx");
+                    }
+                }
+                else
+                {
+                    throw new FormatException("Telefon numarası sadece rakamlardan oluşmalıdır.");
+                }
+
+
+            }
+        }
+
+        public string DenemeTelNo { get; set; }
+
 
     }
 }
